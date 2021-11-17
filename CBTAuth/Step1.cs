@@ -156,7 +156,8 @@ namespace CBTAuth
 
                 verif = new EnrollDto();
             }
-            // verif = verif == false ? true : true; //Remove for production 
+
+            Verified = verif;
 
             if (verif != null)
             {
@@ -210,7 +211,7 @@ namespace CBTAuth
             BSPError err;
 
 
-            if (m_EnrollFIR == "")
+            if (m_EnrollFIR == "" || string.IsNullOrEmpty(m_EnrollFIR))
             {
                 return null;
             }

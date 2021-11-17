@@ -59,7 +59,7 @@ namespace CBTAuth
             this.txtBaseURL.Name = "txtBaseURL";
             this.txtBaseURL.Size = new System.Drawing.Size(236, 26);
             this.txtBaseURL.TabIndex = 1;
-            this.txtBaseURL.Text = "http://enroller.lautech.edu.ng/";
+            this.txtBaseURL.Text = "https://localhost:44383/";
             this.txtBaseURL.Visible = false;
             this.txtBaseURL.TextChanged += new System.EventHandler(this.txtBaseURL_TextChanged);
             // 
