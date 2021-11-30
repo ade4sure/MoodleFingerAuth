@@ -141,12 +141,11 @@ namespace CBTAuth
 
         private void btnAuth_Click(object sender, EventArgs e)
         {
-            EnrollDto verif;
-
+            
             Verified = null;
             try
             {
-                verif = Verify(m_EnrollFIRText);
+                Verified = Verify(m_EnrollFIRText);
             }
 
             catch (Exception ex)
@@ -154,12 +153,11 @@ namespace CBTAuth
 
                 MessageBox.Show("Internal Error!", "Unknown Finger");
 
-                verif = new EnrollDto();
+                Verified = null;
             }
+                       
 
-            Verified = verif;
-
-            if (verif != null)
+            if (Verified != null)
             {
                 //Create a PrintDocument object  
                 PrintDocument pd = new PrintDocument();
