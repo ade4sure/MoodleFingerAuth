@@ -15,14 +15,14 @@ using System.Windows.Forms;
 
 namespace CBTAuth
 {
-    public partial class Step1 : Form
+    public partial class Step2 : Form
     {
         private SecuBSPMx m_SecuBSP;
         private string m_EnrollFIRText;
         private string m_CaptureFIRText;
         private bool m_DeviceOpened;
         private EnrollDto Verified;
-        public Step1()
+        public Step2()
         {
             InitializeComponent();
         }
@@ -96,7 +96,7 @@ namespace CBTAuth
 
 
 
-            var stringTask = login.Client.PostAsJsonAsync("/api/v2/services/enroll", model);
+            var stringTask = login.Client.PostAsJsonAsync("/api/v2/services/enrollUTME", model);
             try
             {
                 ResMessage = stringTask.Result;
@@ -145,7 +145,8 @@ namespace CBTAuth
             Verified = null;
             try
             {
-                Verified = Verify(m_EnrollFIRText);
+                //Verified = Verify(m_EnrollFIRText);
+                Verified = Capture();
             }
 
             catch (Exception ex)
@@ -197,7 +198,7 @@ namespace CBTAuth
             //Draw "Hello Printer!";  
             g.DrawString("Course:  " + Verified.CourseCode, new Font("Arial", 10), brush, new Rectangle(20, 0, 350, 50));
             g.DrawString("Username =  ", fontB, brush, new Rectangle(20, 20, 350, 50));
-            g.DrawString(Verified.MatNo, font, brush, new Rectangle(120, 20, 350, 50));
+            g.DrawString(Verified.MatNo.ToUpper(), font, brush, new Rectangle(120, 20, 350, 50));
             g.DrawString("Password =  ", fontB, brush, new Rectangle(20, 50, 400, 50));
             g.DrawString(Verified.Pwd.ToUpper(), font, brush, new Rectangle(120, 50, 400, 50));
             g.DrawString("PrintDate: " + Verified.EnrollDate.ToString("dd/MMM/yyyy hh:mm tt"), new Font("Arial", 9), brush, new Rectangle(20, 80, 400, 50));
@@ -241,8 +242,8 @@ namespace CBTAuth
                     var bol = EnrollStudent(enrol).Result;
                     if (bol != null)
                     {
-                        Verified = enrol;
-                        return enrol;
+                        Verified = bol;
+                        return bol;
                     }
                 }
                 else return null;
@@ -250,6 +251,46 @@ namespace CBTAuth
             return null;
 
         }
+
+        private EnrollDto Capture()
+        {
+            BSPError err;
+            
+            m_SecuBSP.CaptureWindowOption.WindowStyle = (int)WindowStyle.POPUP;
+
+            m_SecuBSP.CaptureWindowOption.ShowFPImage = true;
+
+            m_SecuBSP.CaptureWindowOption.FingerWindow = (IntPtr)0;
+
+
+            err = m_SecuBSP.Capture(FIRPurpose.VERIFY);
+
+            //var rnG1 = new RandomGenerator();
+
+            if (err == BSPError.ERROR_NONE)
+            {
+               
+                var rnG = new RandomGenerator();
+                //Enroll student
+                var enrol = new EnrollDto()
+                {
+                    MatNo = txtMatno.Text.Trim().ToLower(),
+                    CourseCode = comboCourses.Text,
+                    Pwd = rnG.RandomPassword().ToLower(),
+                     FIR = m_SecuBSP.FIRTextData
+            };
+                var bol = EnrollStudent(enrol).Result;
+                if (bol != null)
+                {
+                    Verified = bol;
+                    return bol;
+                }
+            }
+
+            return null;
+
+        }
+
 
 
         string MakeHexaDecimal(Int32 numbers, Int32 digit)

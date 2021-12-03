@@ -35,6 +35,7 @@ namespace CBTAuth.Dtos
         public string MatNo { get; set; }
         public string CourseCode { get; set; }
         public string Pwd { get; set; }
+        public string FIR { get; set; }
         public DateTime EnrollDate { get; set; }
     }
 
