@@ -12,4 +12,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Step2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

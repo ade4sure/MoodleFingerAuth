@@ -334,6 +334,8 @@ namespace CBTAuth
             if (err == BSPError.ERROR_NONE)
                 m_CaptureFIRText = m_SecuBSP.FIRTextData;
 
+                txtFIRTextData.Text = m_SecuBSP.FIRTextData;
+
             DisplaySecuBSPErrMsg("Capture", err);
 
         }

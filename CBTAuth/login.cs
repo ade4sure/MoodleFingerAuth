@@ -119,8 +119,11 @@ namespace CBTAuth
                 GlobalClass.HallName = ret.Name;
 
                 this.Hide();
-                Step1 S1 = new Step1();
-                S1.ShowDialog();                
+                //Step1 S1 = new Step1();
+                //S1.ShowDialog();
+
+                Step2 S2 = new Step2();
+                S2.ShowDialog();                
             }
             else
             {
