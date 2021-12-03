@@ -36,7 +36,6 @@ namespace CBTAuth
             this.btnAuth = new System.Windows.Forms.Button();
             this.lblStdName = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnOpenDevice = new System.Windows.Forms.Button();
             this.EnumBtn = new System.Windows.Forms.Button();
@@ -46,6 +45,7 @@ namespace CBTAuth
             this.DeviceIDCombo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboCourses = new System.Windows.Forms.ComboBox();
+            this.btnEnroll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pikStudent)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -100,7 +100,7 @@ namespace CBTAuth
             this.btnAuth.Location = new System.Drawing.Point(343, 381);
             this.btnAuth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAuth.Name = "btnAuth";
-            this.btnAuth.Size = new System.Drawing.Size(209, 48);
+            this.btnAuth.Size = new System.Drawing.Size(178, 48);
             this.btnAuth.TabIndex = 4;
             this.btnAuth.Text = "Authenticate";
             this.btnAuth.UseVisualStyleBackColor = true;
@@ -122,24 +122,13 @@ namespace CBTAuth
             // 
             this.btnReset.Enabled = false;
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnReset.Location = new System.Drawing.Point(560, 380);
+            this.btnReset.Location = new System.Drawing.Point(529, 381);
             this.btnReset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(34, 48);
             this.btnReset.TabIndex = 8;
             this.btnReset.Text = "R";
             this.btnReset.UseVisualStyleBackColor = true;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExit.Location = new System.Drawing.Point(552, 2);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(43, 23);
-            this.btnExit.TabIndex = 93;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // groupBox1
             // 
@@ -241,15 +230,26 @@ namespace CBTAuth
             this.comboCourses.Size = new System.Drawing.Size(156, 26);
             this.comboCourses.TabIndex = 95;
             // 
+            // btnEnroll
+            // 
+            this.btnEnroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEnroll.Location = new System.Drawing.Point(569, 381);
+            this.btnEnroll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnEnroll.Name = "btnEnroll";
+            this.btnEnroll.Size = new System.Drawing.Size(34, 48);
+            this.btnEnroll.TabIndex = 96;
+            this.btnEnroll.Text = "E";
+            this.btnEnroll.UseVisualStyleBackColor = true;
+            this.btnEnroll.Click += new System.EventHandler(this.btnEnroll_Click);
+            // 
             // Step1
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 441);
-            this.ControlBox = false;
+            this.Controls.Add(this.btnEnroll);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.lblStdName);
             this.Controls.Add(this.btnAuth);
@@ -258,8 +258,9 @@ namespace CBTAuth
             this.Controls.Add(this.txtMatno);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
             this.Name = "Step1";
-            this.Text = "Step 1";
+            this.Text = "Undergraduate Screener";
             this.Load += new System.EventHandler(this.Step1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pikStudent)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -278,7 +279,6 @@ namespace CBTAuth
         private System.Windows.Forms.Button btnAuth;
         private System.Windows.Forms.Label lblStdName;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnOpenDevice;
         private System.Windows.Forms.Button EnumBtn;
@@ -288,5 +288,6 @@ namespace CBTAuth
         private System.Windows.Forms.ComboBox DeviceIDCombo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboCourses;
+        private System.Windows.Forms.Button btnEnroll;
     }
 }

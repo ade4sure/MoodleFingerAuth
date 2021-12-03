@@ -92,7 +92,6 @@ namespace CBTAuth
             GlobalClass.BaseURL = txtBaseURL.Text.Trim();
             txtUsername.Select();
             client.BaseAddress = new Uri(GlobalClass.BaseURL);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -117,13 +116,14 @@ namespace CBTAuth
             if (ret != null)
             {
                 GlobalClass.HallName = ret.Name;
+                GlobalClass.IsLogin = true;
+                GlobalClass.HallFIR = ret.FIR;
 
-                this.Hide();
-                //Step1 S1 = new Step1();
-                //S1.ShowDialog();
+               // Home.modeMenu.Enabled = true;
 
-                Step2 S2 = new Step2();
-                S2.ShowDialog();                
+                //this.Hide();
+                this.Close();                
+           
             }
             else
             {

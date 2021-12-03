@@ -66,7 +66,7 @@ namespace CBTAuth
             }
 
             return StudJSON;
-        }
+        }         
 
         public async Task<List<CourseDto>> GetCourses()
         {
@@ -97,6 +97,36 @@ namespace CBTAuth
 
 
             var stringTask = login.Client.PostAsJsonAsync("/api/v2/services/enroll", model);
+            try
+            {
+                ResMessage = stringTask.Result;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (ResMessage.IsSuccessStatusCode)
+            {
+                var readTask = ResMessage.Content.ReadFromJsonAsync<EnrollDto>();
+
+                enrol = readTask.Result;
+
+                return enrol;
+            }
+
+            return null;
+        }
+
+        public async Task<EnrollDto> EnrollStudentWithFingers(EnrollDto model)
+        {
+            var enrol = new EnrollDto();
+
+            HttpResponseMessage ResMessage = null;
+
+
+
+            var stringTask = login.Client.PostAsJsonAsync("/api/v2/services/enrollUTME", model);
             try
             {
                 ResMessage = stringTask.Result;
@@ -369,6 +399,116 @@ namespace CBTAuth
                 comboCourses.Items.Add(crs.Code);
             }
             if (Courses.Count() > 0) comboCourses.SelectedIndex = 0;
+        }
+
+        private void btnEnroll_Click(object sender, EventArgs e)
+        {
+            Verified = null;
+            var matNo = txtMatno.Text.Trim();
+
+            if (matNo.Length < 1)
+            {
+                MessageBox.Show("Error", "Supply Matric");
+               
+            }
+            else
+            {
+                try
+                {
+                    Verified = EnrollFingers(txtMatno.Text.Trim());
+                }
+
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Internal Error!", "Unknown Finger");
+
+                    Verified = null;
+                }
+            }
+
+            
+
+
+            if (Verified != null)
+            {
+                //Create a PrintDocument object  
+                PrintDocument pd = new PrintDocument();
+
+                //Set PrinterName as the selected printer in the printers list  
+                pd.PrinterSettings.PrinterName = comboPrinters.SelectedItem.ToString();
+
+                //Add PrintPage event handler  
+                pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
+
+                //Print the document  
+                pd.Print();
+
+                lblStdName.Text = "";
+            }
+
+
+            txtMatno.Clear();
+            txtMatno.Select();
+            this.AcceptButton = btnSearch;
+        }
+
+        private EnrollDto EnrollFingers(string matno)
+        {
+            BSPError err;
+
+
+            if (matno == "" || string.IsNullOrEmpty(matno))
+            {
+                return null;
+            }
+
+            m_SecuBSP.CaptureWindowOption.WindowStyle = (int)WindowStyle.POPUP;
+
+            m_SecuBSP.CaptureWindowOption.ShowFPImage = true;
+
+            m_SecuBSP.CaptureWindowOption.FingerWindow = (IntPtr)0;
+
+
+            err = m_SecuBSP.Enroll(matno);
+
+            //var rnG1 = new RandomGenerator();
+
+            if (err == BSPError.ERROR_NONE)
+            {
+
+                MessageBox.Show("Pls, supply Hall owner ID");
+
+                err = m_SecuBSP.Verify(GlobalClass.HallFIR);
+
+                if (err == BSPError.ERROR_NONE)
+                {
+                    var rnG = new RandomGenerator();
+                    //Enroll student
+                    var enrol = new EnrollDto()
+                    {
+                        MatNo = txtMatno.Text.Trim().ToLower(),
+                        CourseCode = comboCourses.Text,
+                        Pwd = rnG.RandomPassword().ToLower(),
+                        FIR = m_SecuBSP.FIRTextData
+                    };
+                    var bol = EnrollStudentWithFingers(enrol).Result;
+                    if (bol != null)
+                    {
+                        Verified = bol;
+                        return bol;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invald Hall Owner","Access Denied",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
+               
+            }
+
+            return null;
+
+
         }
     }
 }
