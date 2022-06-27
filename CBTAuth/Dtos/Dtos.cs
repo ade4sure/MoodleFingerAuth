@@ -39,6 +39,14 @@ namespace CBTAuth.Dtos
         public DateTime EnrollDate { get; set; }
     }
 
+    public class EnrollFresherDto
+    {
+        public string Number { get; set; }  
+        public string FIR { get; set; }
+        public string Enroller { get; set; }
+        public DateTime EnrollDate { get; set; }
+    }
+
     public class GetStudentDto
     {
         [Required]
@@ -47,5 +55,11 @@ namespace CBTAuth.Dtos
         public string CourseCode { get; set; }
         [Required]
         public string hall { get; set; } = GlobalClass.HallName;
+    }
+    public class BiodataGetStudentDto
+    {
+        public string Name { get; set; }
+        public string Utme { get; set; }
+        public string ImageURL { get; set; }
     }
 }

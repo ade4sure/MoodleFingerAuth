@@ -17,5 +17,8 @@
     <Compile Update="Step1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Step4.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

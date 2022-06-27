@@ -297,9 +297,6 @@ namespace CBTAuth
             return dest_str;
         }
 
-
-
-
         private void Step1_Load(object sender, EventArgs e)
         {
 
@@ -510,5 +507,7 @@ namespace CBTAuth
 
 
         }
+   
+    
     }
 }

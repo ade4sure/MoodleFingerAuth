@@ -69,7 +69,8 @@ namespace CBTAuth
         public   async Task<StudentDto> GetStudent(string matno)
         {
             StudentDto StudJSON;
-            client.BaseAddress = new Uri(txtBaseURL.Text.Trim());
+            GlobalClass.BaseURL = txtBaseURL.Text.Trim();
+            client.BaseAddress = new Uri(GlobalClass.BaseURL);            
 
             try
             {

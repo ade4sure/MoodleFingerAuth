@@ -144,5 +144,12 @@ namespace CBTAuth
 
            
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Step4 Fresher = new Step4();
+            Fresher.MdiParent = this;
+            Fresher.Show();
+        }
     }
 }
